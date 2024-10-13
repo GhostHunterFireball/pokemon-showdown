@@ -1218,6 +1218,7 @@ export class Battle {
 
 		const requests = this.getRequests(type);
 		for (let i = 0; i < this.sides.length; i++) {
+			requests[i].battleState = this.toJSON()
 			this.sides[i].emitRequest(requests[i]);
 		}
 
@@ -1375,7 +1376,7 @@ export class Battle {
 		side.active[0]?.faint();
 		this.faintMessages(false, true);
 		if (!this.ended && side.requestState) {
-			side.emitRequest({wait: true, side: side.getRequestData()});
+			side.emitRequest({wait: true, side: side.getRequestData(), battleState: this.toJSON()});
 			side.clearChoice();
 			if (this.allChoicesDone()) this.commitChoices();
 		}
@@ -1595,6 +1596,8 @@ export class Battle {
 		}
 
 		this.add('turn', this.turn);
+		this.add('battlestate', JSON.stringify(this.toJSON()))
+		
 		if (this.gameType === 'multi') {
 			for (const side of this.sides) {
 				if (side.canDynamaxNow()) {
