@@ -1218,7 +1218,7 @@ export class Battle {
 
 		const requests = this.getRequests(type);
 		for (let i = 0; i < this.sides.length; i++) {
-			requests[i].battleState = JSON.stringify(this.toJSON())
+			requests[i].battleState = this.toJSON()
 			this.sides[i].emitRequest(requests[i]);
 		}
 
@@ -1376,7 +1376,7 @@ export class Battle {
 		side.active[0]?.faint();
 		this.faintMessages(false, true);
 		if (!this.ended && side.requestState) {
-			side.emitRequest({wait: true, side: side.getRequestData(), battleState: JSON.stringify(this.toJSON())});
+			side.emitRequest({wait: true, side: side.getRequestData(), battleState: this.toJSON()});
 			side.clearChoice();
 			if (this.allChoicesDone()) this.commitChoices();
 		}
