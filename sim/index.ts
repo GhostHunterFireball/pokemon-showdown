@@ -15,6 +15,7 @@ export {BattleStream, getPlayerStreams} from './battle-stream';
 export {Pokemon} from './pokemon';
 export {PRNG} from './prng';
 export {Side} from './side';
+export {State} from './state';
 
 // dex API
 
