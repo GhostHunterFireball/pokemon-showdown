@@ -127,10 +127,12 @@ export class BattleStream extends Streams.ObjectReadWriteStream<string> {
 			const serializedBattle = State.serializeBattle(this.battle)
 			const serializedBattleString = JSON.stringify(serializedBattle)
 			this.battle.send('serializedbattle', serializedBattleString)
+			break
 		case 'deserializebattle':
 			const deserializedBattle = State.deserializeBattle(message)
 			this.battle.destroy()
 			this.battle = deserializedBattle
+			break
 		case 'forcewin':
 		case 'forcetie':
 			this.battle!.win(type === 'forcewin' ? message as SideID : null);
