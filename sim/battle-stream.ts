@@ -12,6 +12,7 @@
 import {Streams, Utils} from '../lib';
 import {Teams} from './teams';
 import {Battle, extractChannelMessages} from './battle';
+import {State} from './state';
 
 /**
  * Like string.split(delimiter), but only recognizes the first `limit`
@@ -122,6 +123,14 @@ export class BattleStream extends Streams.ObjectReadWriteStream<string> {
 				this.battle!.choose(type, message);
 			}
 			break;
+		case 'serializebattle':
+			const serializedBattle = State.serializeBattle(this.battle)
+			const serializedBattleString = JSON.stringify(serializedBattle)
+			this.battle.send('serializedbattle', serializedBattleString)
+		case 'deserializebattle':
+			const deserializedBattle = State.deserializeBattle(message)
+			this.battle.destroy()
+			this.battle = deserializedBattle
 		case 'forcewin':
 		case 'forcetie':
 			this.battle!.win(type === 'forcewin' ? message as SideID : null);
