@@ -79,7 +79,7 @@ export class BattleStream extends Streams.ObjectReadWriteStream<string> {
 					const [type, message] = splitFirst(line.slice(1), ' ');
 					this._writeLine(type, message);
 				} else {
-					this._writeLine(line.splice(1))
+					this._writeLine(line.slice(1))
 				}
 			}	
 		}
