@@ -75,9 +75,13 @@ export class BattleStream extends Streams.ObjectReadWriteStream<string> {
 	_writeLines(chunk: string) {
 		for (const line of chunk.split('\n')) {
 			if (line.startsWith('>')) {
-				const [type, message] = splitFirst(line.slice(1), ' ');
-				this._writeLine(type, message);
-			}
+				if (line.contains(' ') {
+					const [type, message] = splitFirst(line.slice(1), ' ');
+					this._writeLine(type, message);
+				} else {
+					this._writeLine(line.splice(1))
+				}
+			}	
 		}
 	}
 
