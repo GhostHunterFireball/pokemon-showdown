@@ -131,7 +131,7 @@ export class BattleStream extends Streams.ObjectReadWriteStream<string> {
 		case 'serializebattle':
 			const serializedBattle = State.serializeBattle(this.battle)
 			const serializedBattleString = JSON.stringify(serializedBattle)
-			this.battle.send('serializedbattle', serializedBattleString)
+			this.battle.send('serializedbattle', `|serializedbattle|${serializedBattleString}`)
 			break
 		case 'deserializebattle':
 			const deserializedBattle = State.deserializeBattle(message)
